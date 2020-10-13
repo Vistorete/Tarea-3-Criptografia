@@ -3,6 +3,7 @@ if __name__ == "__main__":
     
     from Crypto.Cipher import DES
     from Crypto import Random
+    import base64
 
     key = b'-8B key-'
     iv = Random.new().read(DES.block_size)
@@ -10,13 +11,14 @@ if __name__ == "__main__":
     plaintext = b'sona si latine loqueris '
     msg = iv + cipher.encrypt(plaintext)
     
-    ivhex = iv.hex()
-    msghex = msg.hex()
-    keyhex = key.hex()
+    iv64 = base64.b64encode(iv)
+    msg64 = base64.b64encode(msg)
+    key64 = base64.b64encode(key)
+
     print(plaintext)
-    print(ivhex)
-    print(msghex)
-    print(keyhex)
+    print(iv64)
+    print(msg64)
+    print(key64)
     
     index = open("index.html","w")
     index.write('''
@@ -29,11 +31,11 @@ if __name__ == "__main__":
             </title>
             <body>
                 <p>Este sitio contiene un mensaje secreto</p>
-                <div class="deshex" id="%s"></div>
-                <div class="ivhex" id="%s"></div>
-                <div class="keyhex" id="%s"></div>
+                <div class="des" id="%s"></div>
+                <div class="iv" id="%s"></div>
+                <div class="key" id="%s"></div>
             </body>
         </html>
-        ''' % (msghex, ivhex, keyhex))
+        ''' % (msg64.decode(), iv64.decode(), key64.decode()))
     index.close()
 
