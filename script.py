@@ -12,9 +12,12 @@ if __name__ == "__main__":
     
     ivhex = iv.hex()
     msghex = msg.hex()
+    keyhex = key.hex()
     print(plaintext)
     print(ivhex)
     print(msghex)
+    print(keyhex)
+    
     index = open("index.html","w")
     index.write('''
         <html>
@@ -28,9 +31,9 @@ if __name__ == "__main__":
                 <p>Este sitio contiene un mensaje secreto</p>
                 <div class="deshex" id="%s"></div>
                 <div class="ivhex" id="%s"></div>
-                <div class="key" id="%s"></div>
+                <div class="keyhex" id="%s"></div>
             </body>
         </html>
-        ''' % (msghex, ivhex, key))
+        ''' % (msghex, ivhex, keyhex))
     index.close()
 
