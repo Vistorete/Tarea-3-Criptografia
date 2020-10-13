@@ -35,7 +35,7 @@ if __name__ == "__main__":
             </title>
             <body>
                 <p>Este sitio contiene un mensaje secreto</p>
-                <div class="camellia" id="%s">Hola mundo</div>
+                <div class="camellia" id="%s"></div>
             </body>
         </html>
         ''' % mensaje_codificado)
