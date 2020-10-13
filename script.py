@@ -1,32 +1,20 @@
 
-
-import camellia
-import base64
-
-
 if __name__ == "__main__":
-
-    c1 = camellia.CamelliaCipher(key=b'16 byte long key', IV=b'16 byte iv. abcd', mode=camellia.MODE_CBC)
-    c2 = camellia.CamelliaCipher(key=b'16 byte long key', IV=b'16 byte iv. abcd', mode=camellia.MODE_CBC)
-
-    mensaje = "mi mensaje secre" # El mensaje que se encriptara
-    plain = mensaje.encode("utf-8") # Codifica los caracteres a bytes
-    encrypted = c1.encrypt(plain) # Encripta los caracteres
     
-    mensaje_codificado = encrypted.hex() # Pasa los bytes a caracteres
-    encrypted64 =base64.b64encode(encrypted) # Lo bytes se pasan a base 64
-    mensaje_codificado64 = encrypted64.decode()
-
-    decripted = c2.decrypt(encrypted) # Desencripta los bytes
-    mensaje_decodificado = decripted.decode("utf-8") # Pasa los bytes a caracteres
+    from Crypto.Cipher import DES
+    from Crypto import Random
+    import base64
+    key = b'-8B key-'
+    iv = Random.new().read(DES.block_size)
+    cipher = DES.new(key, DES.MODE_CBC, iv)
+    plaintext = b'sona si latine loqueris '
+    msg = iv + cipher.encrypt(plaintext)
     
-    print("mensaje:", mensaje)
-    # >>>> mensaje: mi mensaje secre
-    print("mensaje codificado:", mensaje_codificado)
-    print("mensaje codificado64:", mensaje_codificado64)
-    # >>>> mensaje: Fxï-Ú)RU;Ôå
-    print("mensaje decodificado:", mensaje_decodificado)
-    # >>>> mensaje: mi mensaje secre 
+    iv64 = base64.b64encode(iv)
+    msg64 = base64.b64encode(msg)
+    print(plaintext.decode())
+    print(iv64.decode())
+    print(msg64.decode())
     index = open("index.html","w")
     index.write('''
         <html>
@@ -38,10 +26,11 @@ if __name__ == "__main__":
             </title>
             <body>
                 <p>Este sitio contiene un mensaje secreto</p>
-                <div class="camelliahex" id="%s"></div>
-                <div class="camellia64" id="%s"></div>
+                <div class="des64" id="%s"></div>
+                <div class="iv64" id="%s"></div>
+                <div class="key" id="%s"></div>
             </body>
         </html>
-        ''' % (mensaje_codificado, mensaje_codificado64))
+        ''' % (msg64.decode(), iv64.decode(), key.decode()))
     index.close()
 
