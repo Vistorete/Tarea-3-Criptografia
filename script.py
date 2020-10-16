@@ -1,25 +1,21 @@
-
+import pyDes # pyDes.des(key, [mode], [IV], [pad], [padmode])
+import base64
+    
 if __name__ == "__main__":
-    
-    from Crypto.Cipher import DES
-    from Crypto import Random
-    import base64
 
-    key = b'-8B key-'
-    iv = Random.new().read(DES.block_size)
-    cipher = DES.new(key, DES.MODE_CBC, iv)
-    plaintext = b'sona si latine loqueris '
-    msg = iv + cipher.encrypt(plaintext)
-    
-    iv64 = base64.b64encode(iv)
-    msg64 = base64.b64encode(msg)
-    key64 = base64.b64encode(key)
+    data = "DES Algorithm Implementation"
+    key = "DESCRYPT"
+    iv = "holamund"
+    k = pyDes.des(key, pyDes.CBC, iv, pad=None, padmode=pyDes.PAD_PKCS5)
+    encrypted_data = k.encrypt(data)
+    decrypted_data = k.decrypt(encrypted_data)
+    print ("Texto plano: %r" % data)
+    print ("Key: %r" % key)
+    print ("IV: %r" % iv)
+    print ("Encrypted: %r \t Hex: %s" %( encrypted_data, encrypted_data.hex()))
+    print ("Decrypted: %r" % decrypted_data)
 
-    print(plaintext)
-    print(iv64)
-    print(msg64)
-    print(key64)
-    
+
     index = open("index.html","w")
     index.write('''
         <html>
@@ -36,6 +32,6 @@ if __name__ == "__main__":
                 <div class="key" id="%s"></div>
             </body>
         </html>
-        ''' % (msg64.decode(), iv64.decode(), key64.decode()))
+        ''' % (encrypted_data.hex(), iv, key))
     index.close()
 
