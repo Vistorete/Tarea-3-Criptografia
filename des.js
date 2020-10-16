@@ -11,49 +11,49 @@
 // ==/UserScript==
 
 (function() {
-    'use strict';
-
+      /**
+         * Encryption
+       */
+    function des_encrypt(plaintext, key, iv) {
+        key = CryptoJS.enc.Utf8.parse(key)
+        iv = CryptoJS.enc.Utf8.parse(iv)
+        let srcs = CryptoJS.enc.Utf8.parse(plaintext)
+        let encrypted = CryptoJS.DES.encrypt(srcs, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7
+        })
+        return encrypted.ciphertext.toString()
+      }
+      /**
+         * Decryption
+       */
+      function des_decrypt(ciphertext, key, iv) {
+        key = CryptoJS.enc.Utf8.parse(key)
+        iv = CryptoJS.enc.Utf8.parse(iv)
+        let hex_string = CryptoJS.enc.Hex.parse(ciphertext)
+        let srcs = CryptoJS.enc.Base64.stringify(hex_string)
+        let decrypt = CryptoJS.DES.decrypt(srcs, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7
+        })
+        decrypt = decrypt.toString(CryptoJS.enc.Utf8)
+        return decrypt.toString()
+      }
 
     var msg = $('.des').attr("id");
     var iv = $('.iv').attr("id");
     var key = $('.key').attr("id");
-    console.log(msg);
-    console.log(iv);
-    console.log(key);
+    console.log("Mensaje encriptado(hex): " +  msg);
+    console.log("Llave: " + key);
+    console.log("IV: " + iv);
 
-    /**
-   * Encryption
- */
-function des_encrypt(plaintext, key, iv) {
-    key = CryptoJS.enc.Utf8.parse(key)
-    iv = CryptoJS.enc.Utf8.parse(iv)
-    let srcs = CryptoJS.enc.Utf8.parse(plaintext)
-    let encrypted = CryptoJS.DES.encrypt(srcs, key, {
-      iv: iv,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    })
-    return encrypted.ciphertext.toString()
-  }
-  /**
-     * Decryption
-   */
-  function des_decrypt(ciphertext, key, iv) {
-    key = CryptoJS.enc.Utf8.parse(key)
-    iv = CryptoJS.enc.Utf8.parse(iv)
-    let hex_string = CryptoJS.enc.Hex.parse(ciphertext)
-    let srcs = CryptoJS.enc.Base64.stringify(hex_string)
-    let decrypt = CryptoJS.DES.decrypt(srcs, key, {
-      iv: iv,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    })
-    decrypt = decrypt.toString(CryptoJS.enc.Utf8)
-    return decrypt.toString()
-  }
-    var encrypted_text = des_encrypt("DES Algorithm Implementation","DESCRYPT","holamund");
-    console.log(encrypted_text)
-    var decrypted_text = des_decrypt(encrypted_text,"DESCRYPT","holamund");
+
+
+    // var encrypted_text = des_encrypt("DES Algorithm Implementation","DESCRYPT","holamund");
+    // console.log(encrypted_text)
+    var decrypted_text = des_decrypt(msg, key, iv);
     console.log(decrypted_text)
 
 })();
