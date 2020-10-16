@@ -5,7 +5,7 @@ if __name__ == "__main__":
 
     data = "DES Algorithm Implementation"
     key = "DESCRYPT"
-    iv = "holamund"
+    iv = "abcd1234"
     k = pyDes.des(key, pyDes.CBC, iv, pad=None, padmode=pyDes.PAD_PKCS5)
     encrypted_data = k.encrypt(data)
     decrypted_data = k.decrypt(encrypted_data)
