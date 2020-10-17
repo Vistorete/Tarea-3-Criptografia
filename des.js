@@ -9,6 +9,7 @@
 // @require      https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/Vistorete/Tarea-3-Criptografia/main/des.js
+// @downloadURL  https://raw.githubusercontent.com/Vistorete/Tarea-3-Criptografia/main/des.js
 // ==/UserScript==
 
 (function() {
