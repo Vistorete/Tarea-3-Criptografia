@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Tarea 3 Cripto
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      1.2
 // @description  try to take over the world!
 // @author       You
 // @match        https://vistorete.github.io/Tarea-3-Criptografia/
@@ -48,6 +48,6 @@
     var $div = $('<div />').appendTo('body');
     $div.attr('id', 'append');
     $('#append').html("Mensaje desencriptado: " + decrypted_text)
-    console.log("prueba de update");
+    alert("prueba de update");
     
 })();
