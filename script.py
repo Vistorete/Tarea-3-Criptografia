@@ -1,5 +1,4 @@
 import pyDes # pyDes.des(key, [mode], [IV], [pad], [padmode])
-import base64
     
 if __name__ == "__main__":
 
@@ -9,10 +8,12 @@ if __name__ == "__main__":
     k = pyDes.des(key, pyDes.CBC, iv, pad=None, padmode=pyDes.PAD_PKCS5)
     encrypted_data = k.encrypt(data)
     decrypted_data = k.decrypt(encrypted_data)
+    
     print ("Texto plano: %r" % data)
     print ("Key: %r" % key)
     print ("IV: %r" % iv)
-    print ("Encrypted: %r \t Hex: %s" %( encrypted_data, encrypted_data.hex()))
+    print ("Encrypted bytes: %r" %encrypted_data)
+    print ("Encrypted hex:   %r" %encrypted_data.hex())
     print ("Decrypted: %r" % decrypted_data)
 
 
@@ -20,7 +21,6 @@ if __name__ == "__main__":
     index.write('''
         <html>
             <head>
-
             </head>
             <title>
                 Tarea cripto
