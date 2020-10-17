@@ -47,6 +47,6 @@
     var $div = $('<div />').appendTo('body');
     $div.attr('id', 'append');
     $('#append').html("Mensaje desencriptado: " + decrypted_text)
-
+    console.log("prueba de update");
     
 })();
